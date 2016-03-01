@@ -1,14 +1,22 @@
 var router = require('express').Router();
 var four0four = require('./utils/404')();
 var data = require('./data');
+var sentiment = require('sentiment');
 
 router.get('/people', getPeople);
 router.get('/person/:id', getPerson);
 router.get('/*', four0four.notFoundMiddleware);
+router.get('/word/:word', word);
 
 module.exports = router;
 
 //////////////
+
+function word(req, res, next){
+    var word = req.params.word;
+    var analisis = sentiment(word); 
+    res.status(200).send(analisis);
+}
 
 function getPeople(req, res, next) {
     res.status(200).send(data.people);

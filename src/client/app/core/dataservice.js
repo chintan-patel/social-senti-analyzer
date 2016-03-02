@@ -9,29 +9,25 @@
     /* @ngInject */
     function dataservice($http, $q, exception, logger, _) {
         var service = {
-            getPeople: getPeople,
-            getMessageCount: getMessageCount,
-            getHistory: getHistory
+            getHistory: getHistory,
+            postHandle: postHandle 
         };
 
         return service;
 
-        function getMessageCount() { return $q.when(72); }
-
-        function getPeople() {
-            return $http.get('/api/people')
+        function postHandle(handle){
+            return $http.post('/api/words/' + handle)
                 .then(success)
                 .catch(fail);
 
             function success(response) {
-                return response.data;
+                return response.data; 
             }
 
             function fail(e) {
                 return exception.catcher('XHR Failed for getPeople')(e);
             }
-        }
-        
+		}
         function getHistory(){
             return $http.get('/api/words/history')
                 .then(success)

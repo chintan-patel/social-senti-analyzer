@@ -61,7 +61,7 @@ function postWords(req, res) {
 			if (err) {
 				res.send(err);
 			}
-			res.send({ analysis: analysis });
+			res.send({ analysis: data });
 		});
 	// });
 };

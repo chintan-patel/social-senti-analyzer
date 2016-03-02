@@ -10,11 +10,12 @@
     function DashboardController($q, dataservice, logger) {
         var vm = this;
         vm.news = {
-            title: 'social-senti-analyzer',
+            title: 'Recent History',
         };
         vm.messageCount = 0;
         vm.history= [];
         vm.title = 'Dashboard';
+		vm.searchTwitter = searchTwitter;
 
         activate();
 
@@ -30,6 +31,15 @@
                 vm.history= data;
                 return vm.history;
             });
+        }
+
+		function searchTwitter() {
+            return dataservice.postHandle(vm.search)
+				.then(function (data) {
+					vm.history.push(data.analysis);
+                    console.log(vm.history);
+					return vm.history;
+				});
         }
     }
 })();

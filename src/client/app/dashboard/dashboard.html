@@ -1,14 +1,17 @@
 <section id="dashboard-view" class="mainbar">
     <section class="matter">
         <div class="container">
-                <div class="col-md-6">
+
+				<input type="text" ng-model="vm.search" placeholder="Twitter Handle" />
+				<button ng-click="vm.searchTwitter()">Get Sentiments</button>
+                <div class="col-md-12">
                     <div class="widget wgreen">
                         <div ht-widget-header title="{{vm.news.title}}"
                              allow-collapse="true"></div>
-                        <div class="widget-content text-center text-info">
-							<ul>
+                        <div class="widget-content text-info">
+							<ul class="unstyled">
 								<li ng-repeat="record in vm.history">
-								<a ng-href="/record/{{ record._id }}">{{ record.searchHash }}</a>	
+								<a ng-href="/record/{{ record._id }}">{{ record.searchHash }}</a>
 								</li>
 							</ul>
                         </div>

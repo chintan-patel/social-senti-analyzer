@@ -4,24 +4,15 @@ var data = require('./data');
 var words = require('./resources/words');
 var sentiment = require('sentiment');
 
-router.get('/people', getPeople);
-router.get('/person/:id', getPerson);
-router.get('/words/:words', word);
+router.get('/words/:words', getWord);
 router.get('/words/history', getWordHistory);
 router.post('/words', postWord);
 router.get('/*', four0four.notFoundMiddleware);
 
-router.get('/*', four0four.notFoundMiddleware);
-
-
 module.exports = router;
 
 //////////////
-/**
- * API Endpoint: http://localhost:8080/api/words
- * @GET - get all words
- */
-function word(req, res) {
+function getWord(req, res) {
 	// Try twitter
 	var newWord = req.params.words;
 	var analysis = sentiment(newWord);
@@ -34,7 +25,7 @@ function word(req, res) {
 		if (err) {
 			res.send(err);
 		}
-		res.send(wordss);
+		res.send(words);
 	});
 };
 
@@ -51,10 +42,6 @@ function postWord(req, res) {
 	});
 }
 
-/**
- * API Endpoint: http://localhost:8080/api/words
- * @POST
- */
 function getWordHistory(req, res) {
 	var word = new word();
 	word.find({}, function(err, words) {
@@ -65,26 +52,3 @@ function getWordHistory(req, res) {
 	});
 };
 
-/*function word(req, res, next){
-    var word = req.params.word;
-    var analisis = sentiment(word); 
-    res.status(200).send(analisis);
-}
-*/
-
-function getPeople(req, res, next) {
-    res.status(200).send(data.people);
-}
-
-function getPerson(req, res, next) {
-    var id = +req.params.id;
-    var person = data.people.filter(function(p) {
-        return p.id === id;
-    })[0];
-
-    if (person) {
-        res.status(200).send(person);
-    } else {
-        four0four.send404(req, res, 'person ' + id + ' not found');
-    }
-}

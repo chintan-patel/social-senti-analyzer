@@ -5,8 +5,10 @@ var sentiment = require('sentiment');
 
 router.get('/people', getPeople);
 router.get('/person/:id', getPerson);
-router.get('/*', four0four.notFoundMiddleware);
 router.get('/word/:word', word);
+
+router.get('/*', four0four.notFoundMiddleware);
+
 
 module.exports = router;
 

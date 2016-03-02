@@ -42,16 +42,14 @@ function postWords(req, res) {
 	// Try twitter
 	var newWord = req.params.words;
 	var tweets = data.tweets;
-	/*twClient.get('search/tweets.json?q=%23' + newWord + '&count=10', function(err, data) {
+	twClient.get('search/tweets.json?q=%23' + newWord + '&count=100', function(err, tweets) {
 		if (err) {
 			res.status(404).send(err);
 		}
-	});
-	*/
-	var analysis= [];
-	for (var i = 0; i < tweets.statuses.length; i++) {
-		analysis.push(sentiment(tweets.statuses[i].text));
-	};
+		var analysis= [];
+		for (var i = 0; i < tweets.statuses.length; i++) {
+			analysis.push(sentiment(tweets.statuses[i].text));
+		};
 		var word = new words();
 		word.analysis = analysis; 
 		word.searchHash = newWord;
@@ -63,7 +61,7 @@ function postWords(req, res) {
 			}
 			res.send({ analysis: data });
 		});
-	// });
+	});
 };
 
 function getWordHistory(req, res) {

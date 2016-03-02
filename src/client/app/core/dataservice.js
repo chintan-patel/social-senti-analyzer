@@ -5,9 +5,9 @@
         .module('app.core')
         .factory('dataservice', dataservice);
 
-    dataservice.$inject = ['$http', '$q', 'exception', 'logger'];
+    dataservice.$inject = ['$http', '$q', 'exception', 'logger', '_'];
     /* @ngInject */
-    function dataservice($http, $q, exception, logger) {
+    function dataservice($http, $q, exception, logger, _) {
         var service = {
             getPeople: getPeople,
             getMessageCount: getMessageCount,
@@ -38,19 +38,7 @@
                 .catch(fail);
 
             function success(response) {
-                console.log(response.data);
-                
-                //var data = _.map(response.data, createChartValues);
-                var data = [
-                    { y: "2006", a: 100, b: 90 },
-                    { y: "2007", a: 75,  b: 65 },
-                    { y: "2008", a: 50,  b: 40 },
-                    { y: "2009", a: 75,  b: 65 },
-                    { y: "2010", a: 50,  b: 40 },
-                    { y: "2011", a: 75,  b: 65 },
-                    { y: "2012", a: 100, b: 90 }
-                ];
-                return data;
+                return response.data; 
             }
 
             function fail(e) {
@@ -58,11 +46,16 @@
             }
             
             function createChartValues(item){
-                return { 
-                    y: moment(item.created_on).format('h:mm:ss'),
-                    a:  (item.score > 0)? item.score : 0,
-                    b: (item.score < 0)? item.score : 0
+				var values = [];
+					console.log(item);
+				for(var i = 0; i < item.analysis.length; i++) { 
+					var tmp = {
+						y: moment(item[i].created_on).format('hh:mm:ss'),
+						a:  (item[i].score > 0)? item[i].score : 0
+					};
+					values.push(tmp);
                 };
+                return values;
             }
         }
     }

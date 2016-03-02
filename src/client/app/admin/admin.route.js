@@ -14,16 +14,16 @@
     function getStates() {
         return [
             {
-                state: 'admin',
+                state: 'history',
                 config: {
-                    url: '/admin',
+					url: '/record/:record_id',
                     templateUrl: 'app/admin/admin.html',
                     controller: 'AdminController',
                     controllerAs: 'vm',
-                    title: 'Admin',
+                    title: 'History',
                     settings: {
                         nav: 2,
-                        content: '<i class="fa fa-lock"></i> Admin'
+                        content: '<i class="fa fa-lock"></i> History'
                     }
                 }
             }

@@ -9,6 +9,7 @@ var twitter = require('twitter');
 var twClient = new twitter(twitterCredentials);
 
 router.post('/words/:words', postWords);
+router.get('/record/:record_id', getRecord);
 router.get('/words/history', getWordHistory);
 router.get('/chintan', testTwitter);
 router.get('/*', four0four.notFoundMiddleware);
@@ -16,6 +17,15 @@ router.get('/*', four0four.notFoundMiddleware);
 module.exports = router;
 
 //////////////
+function getRecord(req, res) {
+	var record_id = req.params.record_id;
+	words.findById(record_id, function(err, data) {
+		if(err){
+			res.status(400).send(err);
+		}
+		res.send(data).status(200);
+	});
+};
 function testTwitter(req, res) {
 	// Try twitter
 	twClient.get('search/tweets.json?q=%23oscars&count=10', function(err, data) {

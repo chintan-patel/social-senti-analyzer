@@ -25,7 +25,7 @@ function getWord(req, res) {
 		if (err) {
 			res.send(err);
 		}
-		res.send(words);
+		res.send(data);
 	});
 };
 
@@ -43,12 +43,12 @@ function postWord(req, res) {
 }
 
 function getWordHistory(req, res) {
-	var word = new word();
-	word.find({}, function(err, words) {
+	var word = new words();
+	word.find({}, function(err, data) {
 		if(err){
 			res.status(400).send(err);
 		}
-		res.send(words).status(200);
+		res.send(data).status(200);
 	});
 };
 

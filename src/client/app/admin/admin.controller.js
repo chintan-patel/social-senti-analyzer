@@ -13,24 +13,24 @@
         
         function activate(data){
             vm.hashtag = '#' + data.searchHash;
-            /*vm.data = createChartValues(data.analysis);
-            
+            vm.data = createChartValues(data);
             vm.xkey = 'y';
-            vm.ykeys = ["a", "b"];
-            vm.labels = ["Positive Comments", "Negative Comments"];
-            vm.colors = ["#31C0BE", "#c7254e"];*/
+            vm.ykeys = ["a"];
+            vm.labels = ["Comments"];
+            vm.colors = ["#31C0BE"];
         }
         
-        function createChartValues(item){
+        function createChartValues(data){
             var values = [];
-                console.log(item);
-            for(var i = 0; i < item.analysis.length; i++) { 
+                console.log(data);
+            for(var i = 0; i < data.analysis.length; i++) { 
                 var tmp = {
-                    y: moment(item[i].created_on).format('hh:mm:ss'),
-                    a:  (item[i].score > 0)? item[i].score : 0
+                    y: i+1,
+                    a:(data.analysis[i].score > 0)? data.analysis[i].score : 0
                 };
                 values.push(tmp);
             };
+            console.log(values);
             return values;
         }
         

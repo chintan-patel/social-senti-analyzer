@@ -5,9 +5,9 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$q', 'dataservice', 'logger'];
+    DashboardController.$inject = ['$q', 'dataservice', 'logger', '$window'];
     /* @ngInject */
-    function DashboardController($q, dataservice, logger) {
+    function DashboardController($q, dataservice, logger, $window) {
         var vm = this;
         vm.news = {
             title: 'Recent History',
@@ -37,7 +37,7 @@
             return dataservice.postHandle(vm.search)
 				.then(function (data) {
 					vm.history.push(data.analysis);
-                    console.log(vm.history);
+                    $window.location = '/record/' + data.analysis._id;
 					return vm.history;
 				});
         }

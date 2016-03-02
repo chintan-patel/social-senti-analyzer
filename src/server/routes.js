@@ -11,6 +11,9 @@ router.get('/words/history', getWordHistory);
 router.post('/words', postWord);
 router.get('/*', four0four.notFoundMiddleware);
 
+router.get('/*', four0four.notFoundMiddleware);
+
+
 module.exports = router;
 
 //////////////
@@ -20,7 +23,7 @@ module.exports = router;
  */
 function word(req, res) {
 	// Try twitter
-	var newWord = req.params.word;
+	var newWord = req.params.words;
 	var analysis = sentiment(newWord);
 	
 	var word = new words();
@@ -53,7 +56,6 @@ function postWord(req, res) {
  * @POST
  */
 function getWordHistory(req, res) {
-	console.log('hict');
 	var word = new word();
 	word.find({}, function(err, words) {
 		if(err){

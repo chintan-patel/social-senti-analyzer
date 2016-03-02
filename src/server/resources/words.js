@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var WordsSchema = new Schema({
+	searchHash: String,
 	analysis: Array,
     delete: { type: Boolean, default: false },
     created_on: { type: Date, default: Date.now }

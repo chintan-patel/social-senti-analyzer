@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var twitterCredentials = require('./config/twitter');
 var four0four = require('./utils/404')();
-var data = require('./data1');
+var data = require('./data');
 var words = require('./resources/words');
 var sentiment = require('sentiment');
 var twitter = require('twitter');
@@ -30,7 +30,7 @@ function testTwitter(req, res) {
 	
 function postWords(req, res) {
 	// Try twitter
-	var newWord = req.body.words;
+	var newWord = req.params.words;
 	var tweets = data.tweets;
 	/*twClient.get('search/tweets.json?q=%23' + newWord + '&count=10', function(err, data) {
 		if (err) {
@@ -43,29 +43,18 @@ function postWords(req, res) {
 		analysis.push(sentiment(tweets.statuses[i].text));
 	};
 		var word = new words();
-		word.analysis = analysis 
+		word.analysis = analysis; 
+		word.searchHash = newWord;
+
 		// save the words and check for errors
 		word.save(function (err, data) {
 			if (err) {
 				res.send(err);
 			}
-			res.send(analysis);
+			res.send({ analysis: analysis });
 		});
 	// });
 };
-
-function postWord(req, res) {
-	var word = new words();
-	word.score = req.body.score;
-	word.comparative = req.body.comparative;
-	// save the words and check for errors
-	word.save(function (err, data) {
-		if (err) {
-			res.send(err);
-		}
-		res.send(data);
-	});
-}
 
 function getWordHistory(req, res) {
 	words.find({}, function(err, data) {

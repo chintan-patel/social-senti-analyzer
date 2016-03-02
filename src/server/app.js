@@ -8,6 +8,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
+var configDB = require('./config/database.js');
+var mongoose = require('mongoose');
+mongoose.connect(configDB.url);
+
+if(!mongoose.connection) {
+	console.log('MongoDB connection failed');
+	process.exit(1);
+}
+else {
+	console.log('MongoDB started');
+}
 
 var environment = process.env.NODE_ENV;
 

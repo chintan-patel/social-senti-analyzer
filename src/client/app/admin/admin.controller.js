@@ -5,9 +5,9 @@
         .module('app.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['logger'];
+    AdminController.$inject = ['logger', 'dataservice'];
     /* @ngInject */
-    function AdminController(logger) {
+    function AdminController(logger, dataservice) {
         var vm = this;
         vm.title = 'Admin';
         vm.hashtag="#Oscars #madmax";
@@ -24,5 +24,12 @@
         vm.ykeys = ["a", "b"];
         vm.labels = ["Positive Comments", "Negative Comments"];
         vm.colors = ["#31C0BE", "#c7254e"];
+        dataservice.getSentiment().
+        then(function (data){
+            vm.history = data;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
     }
 })();

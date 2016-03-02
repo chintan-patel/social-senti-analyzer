@@ -14,7 +14,7 @@
 
     var config = {
         appErrorPrefix: '[social-senti-analyzer Error] ',
-        appTitle: 'social-senti-analyzer'
+        appTitle: 'Social Sentimental Analyzer'
     };
 
     core.value('config', config);
